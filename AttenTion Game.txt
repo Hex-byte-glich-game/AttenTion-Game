@@ -1,0 +1,141 @@
+Finding With a pdb
+GWORLD: cs:?GWorld@@3VUWorldProxy@@A
+GObject: ?GUObjectArray@@3VFUObjectArray@@A
+GNames: Function FName::GetNames(void)
+//////////////////////////////////
+
+Finding without a pdb
+Abusing Strings
+
+
+GNames: %d.%d.%d.%d.%d.%s -> XRef
+64bit Windows (unknown version)
+
+search text 
+
+sub_ proc near
+var_8= qword ptr -8
+sub     rsp, 28h
+mov     rax, cs:qword_
+test    rax, rax
+jnz     short loc_
+*GNames should almost always start with 48 8B 05
+
+GObjects: A_AccentGrave (First Result) - XRef
+
+sub_ proc near
+sub     rsp, 28h
+lea     rcx, dword_
+call    sub_
+lea     rcx, sub_
+add     rsp, 28h
+jmp     sub_
+sub_ endp
+
+*GObjects should almost always start with 48 8D 0D
+
+GWorld: Failed to load UnrealEd Engine class (FirstResult)  -> XRef
+Scroll Down
+
+movss   xmm0, cs:dword_
+xorps   xmm1, xmm1
+ucomiss xmm0, xmm1
+jz      short loc_
+mov     rbx, cs:qword_
+test    rbx, rbx
+jz      short loc_
+mov     r8b, 1
+xor     edx, edx
+mov     rcx, rbx
+call    sub_
+movss   xmm0, cs:dword_
+ucomiss xmm0, dword ptr [rax+350h]
+jz      short loc_
+mov     r8b, 1
+xor     edx, edx
+mov     rcx, rbx
+call    sub_
+movss   xmm0, cs:dword_
+movss   dword ptr [rax+h], xmm0
+
+*GWorld should almost always start with 48 8B 1D
+
+CreateDefault Object:
+?CreateDefaultObject@UClass@@MEAAPEAVUObject@@XZ
+CanvasRenderTarget2DCanvas
+
+.text:000000014187D160 4C 8B DC                                      mov     r11, rsp
+.text:000000014187D163 57                                            push    rdi
+.text:000000014187D164 48 81 EC F0 01 00 00                          sub     rsp, 1F0h
+.text:000000014187D16B 48 8B 05 D6 C8 CD 01                          mov     rax, cs:__security_cookie
+.text:000000014187D172 48 33 C4                                      xor     rax, rsp
+.text:000000014187D175 48 89 84 24 D0 01 00 00                       mov     [rsp+1F8h+var_28], rax
+.text:000000014187D17D 65 48 8B 04 25 58 00 00 00                    mov     rax, gs:58h
+.text:000000014187D186 48 8B F9                                      mov     rdi, rcx
+.text:000000014187D189 8B 0D 29 B0 F9 01                             mov     ecx, cs:TlsIndex
+
+
+ProccessEvent
+PossibleSig: 48 8B 8D ?? ?? 00 00 48 33 CD E8 ?? ?? ?? ?? 48 8B 9D ?? ?? 00 00 48 8D A5 ?? ?? 00 00
+String to abuse AccessNoneNoContext
+I dont have alot of info so here ~scroll down
+
+.text:0000000140CBC4D0                               ; public: virtual void UObject::ProcessEvent(class UFunction *, void *)
+.text:0000000140CBC4D0                               ?ProcessEvent@UObject@@UEAAXPEAVUFunction@@PEAX@Z proc near
+.text:0000000140CBC4D0                                                                       ; CODE XREF: sub_1417C8180+5F↓p
+.text:0000000140CBC4D0                                                                       ; DATA XREF: .rdata:0000000142680FF8↓o ...
+.text:0000000140CBC4D0
+.text:0000000140CBC4D0                               var_120         = dword ptr -120h
+.text:0000000140CBC4D0                               var_100         = qword ptr -100h
+.text:0000000140CBC4D0                               var_F0          = dword ptr -0F0h
+.text:0000000140CBC4D0                               var_E0          = qword ptr -0E0h
+.text:0000000140CBC4D0                               var_D8          = word ptr -0D8h
+.text:0000000140CBC4D0                               var_D0          = qword ptr -0D0h
+.text:0000000140CBC4D0                               var_C8          = qword ptr -0C8h
+.text:0000000140CBC4D0                               var_C0          = qword ptr -0C0h
+.text:0000000140CBC4D0                               var_B8          = qword ptr -0B8h
+.text:0000000140CBC4D0                               var_B0          = xmmword ptr -0B0h
+.text:0000000140CBC4D0                               var_80          = qword ptr -80h
+.text:0000000140CBC4D0                               var_78          = qword ptr -78h
+.text:0000000140CBC4D0                               var_70          = xmmword ptr -70h
+.text:0000000140CBC4D0                               var_60          = qword ptr -60h
+.text:0000000140CBC4D0                               var_58          = qword ptr -58h
+.text:0000000140CBC4D0                               var_50          = byte ptr -50h
+.text:0000000140CBC4D0                               var_40          = qword ptr -40h
+.text:0000000140CBC4D0                               arg_18          = qword ptr  28h
+.text:0000000140CBC4D0
+.text:0000000140CBC4D0 40 55                                         push    rbp
+.text:0000000140CBC4D2 56                                            push    rsi
+.text:0000000140CBC4D3 57                                            push    rdi
+.text:0000000140CBC4D4 41 54                                         push    r12
+.text:0000000140CBC4D6 41 55                                         push    r13
+.text:0000000140CBC4D8 41 56                                         push    r14
+.text:0000000140CBC4DA 41 57                                         push    r15
+.text:0000000140CBC4DC 48 81 EC F0 00 00 00                          sub     rsp, 0F0h
+.text:0000000140CBC4E3 48 8D 6C 24 30                                lea     rbp, [rsp+30h]
+.text:0000000140CBC4E8 48 89 9D 18 01 00 00                          mov     [rbp+0F0h+arg_18], rbx
+.text:0000000140CBC4EF 48 8B 05 52 D5 89 02                          mov     rax, cs:__security_cookie
+.text:0000000140CBC4F6 48 33 C5                                      xor     rax, rbp
+.text:0000000140CBC4F9 48 89 85 B0 00 00 00                          mov     [rbp+0F0h+var_40], rax
+.text:0000000140CBC500 8B 41 0C                                      mov     eax, [rcx+0Ch]
+.text:0000000140CBC503 45 33 F6                                      xor     r14d, r14d
+.text:0000000140CBC506 3B 05 F0 78 A0 02                             cmp     eax, dword ptr cs:qword_1436C3DFC
+.text:0000000140CBC50C 4D 8B F8                                      mov     r15, r8
+.text:0000000140CBC50F 48 8B F2                                      mov     rsi, rdx
+.text:0000000140CBC512 4C 8B E1                                      mov     r12, rcx
+.text:0000000140CBC515 41 B8 FF FF 00 00                             mov     r8d, 0FFFFh
+.text:0000000140CBC51B 7D 2A                                         jge     short loc_140CBC547
+.text:0000000140CBC51D 99                                            cdq
+.text:0000000140CBC51E 41 23 D0                                      and     edx, r8d
+.text:0000000140CBC521 03 C2                                         add     eax, edx
+.text:0000000140CBC523 8B C8                                         mov     ecx, eax
+.text:0000000140CBC525 41 23 C0                                      and     eax, r8d
+.text:0000000140CBC528 2B C2                                         sub     eax, edx
+.text:0000000140CBC52A 48 98                                         cdqe
+.text:0000000140CBC52C C1 F9 10                                      sar     ecx, 10h
+.text:0000000140CBC52F 48 63 C9                                      movsxd  rcx, ecx
+.text:0000000140CBC532 48 8D 14 40                                   lea     rdx, [rax+rax*2]
+.text:0000000140CBC536 48 8B 05 AB 78 A0 02                          mov     rax, cs:qword_1436C3DE8
+.text:0000000140CBC53D 48 8B 0C C8                                   mov     rcx, [rax+rcx*8]
+.text:0000000140CBC541 48 8D 04 D1                                   lea     rax, [rcx+rdx*8]
+.text:0000000140CBC545 EB 03                                         jmp     short loc_140CBC54A
